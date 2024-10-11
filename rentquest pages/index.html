@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentQuest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: hsl(210, 100%, 6%);
+            --foreground: hsl(180, 100%, 90%);
+            --primary: hsl(200, 100%, 28%);
+            --primary-foreground: hsl(180, 100%, 90%);
+            --secondary: hsl(203, 23%, 30%);
+            --secondary-foreground: hsl(180, 100%, 90%);
+            --accent: hsl(198, 70%, 50%);
+            --accent-foreground: hsl(185, 10%, 13%);
+            --destructive: hsl(0, 98%, 44%);
+            --destructive-foreground: hsl(0, 0%, 100%);
+            --muted: hsl(200, 50%, 30%);
+            --muted-foreground: hsl(180, 100%, 90%);
+            --card: hsl(210, 100%, 12%);
+            --card-foreground: hsl(180, 100%, 90%);
+            --popover: hsl(210, 100%, 15%);
+            --popover-foreground: hsl(180, 100%, 90%);
+            --border: hsl(210, 50%, 40%);
+            --input: hsl(210, 50%, 40%);
+            --ring: hsl(180, 100%, 90%);
+            --radius: 0rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0, 0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-foreground);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .logo .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        .desktop-nav a {
+            color: var(--primary-foreground);
+            text-decoration: none;
+            margin-left: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--primary-foreground);
+            cursor: pointer;
+        }
+
+        .menu-toggle svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background-color: var(--primary);
+            padding: 1rem;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: var(--primary-foreground);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(to right, var(--primary), rgba(0, 128, 128, 0.8));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .hero-logo .icon {
+            width: 2rem;
+            height: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-container {
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.25rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--primary-foreground);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .featured, .services, .why-choose {
+            text-align: center;
+        }
+
+        .featured {
+            background-color: var(--background);
+        }
+
+        .services {
+            background-color: var(--secondary);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .property-grid, .service-grid, .reason-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .property-card, .service-card, .reason-card {
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .property-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-content, .service-card, .reason-card {
+            padding: 1.5rem;
+        }
+
+        .property-content h3, .service-card h3, .reason-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-content p, .service-card p, .reason-card p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: var(--accent-foreground);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: hsl(198, 70%, 40%);
+        }
+
+        .service-icon, .reason-icon {
+            background-color: var(--primary);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .service-icon svg, .reason-icon svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--primary-foreground);
+        }
+
+        footer {
+            background-color: var(--muted);
+            padding: 4rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .desktop-nav {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-col min-h-screen">
+        <header class="header">
+            <a href="#" class="logo">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 18h8" />
+                    <path d="M3 22h18" />
+                    <path d="M14 22a7 7 0 1 0 0-14h-1" />
+                    <path d="M9 14h2" />
+                    <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+                    <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" />
+                </svg>
+                <span>RENTQUEST</span>
+            </a>
+            <nav class="desktop-nav">
+                <a href="#">Home</a>
+                <a href="#">Featured</a>
+                <a href="#">Services</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+            <button id="menuToggle" class="menu-toggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </header>
+        <nav id="mobileNav" class="mobile-nav">
+            <a href="#">Home</a>
+            <a href="#">Featured</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+        <main class="flex-1">
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-logo">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 18h8" />
+                            <path d="M3 22h18" />
+                            <path d="M14 22a7 7 0 1 0 0-14h-1" />
+                            <path d="M9 14h2" />
+                            <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+                            <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" />
+                        </svg>
+                        <span>RENTQUEST</span>
+                    </div>
+                    <h1>Find Your Perfect Rental</h1>
+                    <div class="search-container">
+                        <input type="text" placeholder="Search by location, property type, or price" class="search-input">
+                    </div>
+                    <p>We help students find the perfect rental properties</p>
+                </div>
+            </section>
+            <section class="featured">
+                <div class="container">
+                    <h2>Featured Properties</h2>
+                    <p>Discover the best rental properties in your area.</p>
+                    <div class="property-grid">
+                        <div class="property-card">
+                            <img src="/placeholder.svg" alt="Property 1" width="400" height="250">
+                            <div class="property-content">
+                                <h3>Modern Apartment</h3>
+                                <p>Spacious 2-bedroom apartment in the heart of the city.</p>
+                                <button>View Property</button>
+                            </div>
+                        </div>
+                        <div class="property-card">
+                            <img src="/placeholder.svg" alt="Property 2" width="400" height="250">
+                            <div class="property-content">
+                                <h3>Cozy Cottage</h3>
+                                <p>Charming 1-bedroom cottage with a private garden.</p>
+                                <button>View Property</button>
+                            </div>
+                        </div>
+                        <div class="property-card">
+                            <img src="/placeholder.svg" alt="Property 3" width="400" height="250">
+                            <div class="property-content">
+                                <h3>Luxury Penthouse</h3>
+                                <p>Stunning 3-bedroom penthouse with panoramic city views.</p>
+                                <button>View Property</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="services">
+                <div class="container">
+                    <h2>Our Services</h2>
+                    <p>We offer a wide range of services to help you find your perfect rental.</p>
+                    <div class="service-grid">
+                        <div  class="service-card">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>
+                            </div>
+                            <h3>Property Search</h3>
+                            <p>We help you find the perfect rental property that fits your needs.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                            </div>
+                            <h3>Tenant Screening</h3>
+                            <p>We thoroughly screen tenants to ensure a smooth rental experience.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" x2="12" y1="2" y2="22" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                            <h3>Rent Management</h3>
+                            <p>We handle all aspects of rent collection and property management.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="why-choose">
+                <div class="container">
+                    <h2>Why Choose RentQuest?</h2>
+                    <p>We are dedicated to helping you find the perfect rental property.</p>
+                    <div class="reason-grid">
+                        <div class="reason-card">
+                            <div class="reason-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 10v12" />
+                                    <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" />
+                                </svg>
+                            </div>
+                            <h3>Trusted by Students</h3>
+                            <p>We have helped thousands of students find their perfect rental.</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                    <circle cx="12" cy="12" r="4" />
+                                </svg>
+                            </div>
+                            <h3>Fast and Efficient</h3>
+                            <p>We work quickly to help you find and secure your dream rental.</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                            </div>
+                            <h3>Secure and Reliable</h3>
+                            <p>We prioritize your safety and security throughout the rental process.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <a href="#">About Us</a>
+                        <a href="#">Our Team</a>
+                        <a href="#">Careers</a>
+                        <a href="#">News</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Products</h3>
+                        <a href="#">Men</a>
+                        <a href="#">Women</a>
+                        <a href="#">Kids</a>
+                        <a href="#">Accessories</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Resources</h3>
+                        <a href="#">Blog</a>
+                        <a href="#">Community</a>
+                        <a href="#">Support</a>
+                        <a href="#">FAQs</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+
+            menuToggle.addEventListener('click', function() {
+                mobileNav.classList.toggle('active');
+                mobileNav.classList.toggle('fade-in');
+            });
+
+            // Close mobile nav when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInside = mobileNav.contains(event.target) || menuToggle.contains(event.target);
+                if (!isClickInside && mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                    mobileNav.classList.remove('fade-in');
+                }
+            });
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Add hover effect to buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'translateY(-2px)';
+                    button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'translateY(0)';
+                    button.style.boxShadow = 'none';
+                });
+            });
+
+            // Lazy loading for images
+            const images = document.querySelectorAll('img');
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, options);
+
+            images.forEach(img => {
+                imageObserver.observe(img);
+            });
+        });
+    </script>
+</body>
+</html>
