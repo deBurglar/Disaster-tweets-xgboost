@@ -144,6 +144,10 @@ A clean interactive interface for the model.
 - Run with: `streamlit run app/app.py`
 - Input a tweet → Get prediction + confidence
 
+  Here's a sample of the execution of the streamlit app
+
+  
+
 📦 Model & vectorizer are loaded from `.pkl` files.
 
 ---
