@@ -84,10 +84,10 @@ Performed using `GridSearchCV` to find optimal:
 - `learning_rate`
 
 #### 📉 Confusion Matrix (Default Threshold = 0.5)
-![Confusion Matrix](plots/confusion_matrix.png)
+![Confusion Matrix](notebooks/plots/confusion_matrix.png)
 
 #### 🩺 ROC-AUC Curve
-![ROC Curve](plots/roc_curve.png)
+![ROC Curve](notebooks/plots/roc_curve.png)
 
 - **ROC AUC Score**: `0.839`
 - **Why?**  
@@ -100,7 +100,7 @@ Performed using `GridSearchCV` to find optimal:
 We tested different probability thresholds to optimize **recall** vs **precision** trade-off.
 
 #### Confusion Matrix @ Threshold = 0.3
-![Confusion Matrix T=0.3](plots/confusion_matrix_threshold_30.png)
+![Confusion Matrix T=0.3](notebooks/plots/confusion_matrix_threshold_30.png)
 
 - Threshold tuning helps improve recall for disaster tweets (class 1) by shifting the decision boundary.
 - **Recall for class 1 increased from 0.63 → 0.81**, sacrificing some precision.
@@ -116,10 +116,10 @@ Used **TextBlob** to analyze tweet sentiment:
 
 **Distributions:**
 - Polarity:  
-  ![Polarity](plots/polarity_distribution.png)
+  ![Polarity](notebooks/plots/polarity_distribution.png)
 
 - Subjectivity:  
-  ![Subjectivity](plots/subjectivity_distribution.png)
+  ![Subjectivity](notebooks/plots/subjectivity_distribution.png)
 
 **Why?**  
 It’s a soft feature engineering technique to enhance insight and may be added as a feature later.
