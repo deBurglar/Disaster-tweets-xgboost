@@ -4,10 +4,11 @@ import numpy as np
 from utils import preprocess_text
 
 # Load vectorizer and model
-with open("../tfidf_vectorizer.pkl", "rb") as f:
-    tfidf_vectorizer = pickle.load(f)
+# Corrected paths (no ../, no models/)
+with open("tfidf_vectorizer.pkl", "rb") as f:
+    vectorizer = pickle.load(f)
 
-with open("../xgboost_model.pkl", "rb") as f:
+with open("xgboost_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 # Streamlit app
