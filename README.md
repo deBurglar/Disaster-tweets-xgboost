@@ -29,7 +29,7 @@ Raw tweets contain a lot of noise. Cleaning is essential to reduce dimensionalit
 EDA was performed to understand the distribution and characteristics of the text data.
 
 #### 📊 Tweet Length Distribution
-![Tweet Length Distribution](plots/tweet_length_distribution.png)
+![Tweet Length Distribution](plots/target_distribution.png)
 
 - Tweets vary between 20 to 140 characters.
 - Disaster tweets tend to be slightly longer.
