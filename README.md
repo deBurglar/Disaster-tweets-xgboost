@@ -36,10 +36,10 @@ EDA was performed to understand the distribution and characteristics of the text
 
 #### ☁️ Word Clouds
 **Disaster Tweets**
-![Wordcloud Disaster](plots/wordcloud_disaster.png)
+![Wordcloud Disaster](notebooks/plots/wordcloud_disaster.png)
 
 **Non-Disaster Tweets**
-![Wordcloud Non Disaster](plots/wordcloud_non_disaster.png)
+![Wordcloud Non Disaster](notebooks/plots/wordcloud_non_disaster.png)
 
 #### 🔤 Common Words
 
