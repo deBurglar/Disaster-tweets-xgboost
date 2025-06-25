@@ -47,13 +47,13 @@ EDA was performed to understand the distribution and characteristics of the text
 #### 🔤 Common Words
 
 **Across All Tweets**  
-![Common Words All](plots/common_words_all.png)
+![Common Words All](notebooks/plots/common_words_all.png)
 
 **Disaster Tweets**  
-![Common Disaster Words](plots/common_disaster_words.png)
+![Common Disaster Words](notebooks/plots/common_disaster_words.png)
 
 **Non-Disaster Tweets**  
-![Common Non-Disaster Words](plots/common_non_disaster_words.png)
+![Common Non-Disaster Words](notebooks/plots/common_non_disaster_words.png)
 
 **Why?**  
 Visual patterns help identify discriminative keywords like "fire", "help", etc., more prevalent in disaster tweets.
