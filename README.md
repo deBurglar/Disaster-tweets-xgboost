@@ -149,6 +149,7 @@ A clean interactive interface for the model.
 
 ## Here's a sample of the execution in the streamlit app
 
+![Sample Execution](plots/streamlit_sample.jpg)
 
 
 ---
