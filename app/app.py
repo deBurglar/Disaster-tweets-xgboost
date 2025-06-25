@@ -26,7 +26,7 @@ if st.button("Classify"):
     else:
         # Preprocess and predict
         processed_text = preprocess_text(user_input)
-        vectorized_input = tfidf_vectorizer.transform([processed_text])
+        vectorized_input = vectorizer.transform([processed_text])
         prediction = model.predict(vectorized_input)[0]
         proba = model.predict_proba(vectorized_input)[0][prediction]
 
